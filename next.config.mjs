@@ -1,3 +1,9 @@
+// Bismillahirrahmanirahim
+// Elhamdulillahirabbulalemin
+// Es-selatu vesselamu ala rasulina Muhammedin ve ala alihi ve sahbihi ecmain.
+
+
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   
