@@ -33,7 +33,7 @@ export default function WebScreen() {
     <SafeAreaView style={styles.container}>
       <WebView
         ref={webViewRef}
-        source={{ uri: 'https://firotann.vercel.app' }}
+        source={{ uri: 'https://firotan.vercel.app' }}
         style={styles.webview}
         onNavigationStateChange={navState => setCanGoBack(navState.canGoBack)}
         javaScriptEnabled={true}
