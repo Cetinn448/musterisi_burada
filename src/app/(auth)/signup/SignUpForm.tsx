@@ -1,8 +1,9 @@
 // Bismillahirahmanirahim
-
+// Elhamdulillahirabbulalemin
+// Esselatu vesselamu ala rasulillah ve ala alihi ve sahbihi ecma'in
+// Allahu Ekber velilahi'lhamd
 "use client";
 
-// Allah u Ekber
 import LoadingButton from "@/components/LoadingButton";
 import { PasswordInput } from "@/components/PasswordInput";
 import {
@@ -19,11 +20,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { signUp } from "./actions";
-import { Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export default function SignUpForm() {
-
   const [error, setError] = useState<string>();
 
   const [isPending, startTransition] = useTransition();
@@ -34,6 +32,7 @@ export default function SignUpForm() {
       email: "",
       username: "",
       password: "",
+      phone: "", // Telefon numarası için varsayılan değer
     },
   });
 
@@ -77,6 +76,19 @@ export default function SignUpForm() {
         />
         <FormField
           control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Telefon Numarası</FormLabel>
+              <FormControl>
+                <Input placeholder="Telefon Numarası" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
@@ -88,9 +100,9 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        <Check>Kullanıcı Sözleşmesi</Check>
-
-<LoadingButton loading={isPending}>Üye Ol</LoadingButton>
+        <LoadingButton loading={isPending} type="submit" className="w-full">
+          Üye Ol
+        </LoadingButton>
       </form>
     </Form>
   );

@@ -1,6 +1,8 @@
-// Bismillahirrahmanirahim 
-
-// Allah u Ekber
+// Bismillahirrahmanirrahim
+// Elhamdulillahi Rabbul Alemin
+// Es-salatu ve Es-selamu ala Resulina Muhammedin ve ala alihi ve sahbihi ecmain
+// Allah u Ekber, Allah u Ekber, Allah u Ekber, La ilahe illallah
+// Allah u Ekber, Allah u Ekber, ve lillahi'l-hamd
 
 import kyInstance from "@/lib/ky";
 import { useEffect, useState } from "react";
@@ -18,9 +20,11 @@ export default function useInitializeChatClient() {
       .connectUser(
         {
           id: user.id,
-          username: user.username,
           name: user.displayName,
           image: user.avatarUrl,
+          user_details: {
+            username: user.username,
+          },
         },
         async () =>
           kyInstance
@@ -28,16 +32,15 @@ export default function useInitializeChatClient() {
             .json<{ token: string }>()
             .then((data) => data.token),
       )
-      .catch((error) => console.error("Failed to connect user", error))
-      .then(() => setChatClient(client));
+      .then(() => setChatClient(client))
+      .catch((error) => console.error("Failed to connect user", error));
 
-    return () => {
-      setChatClient(null);
-      client
-        .disconnectUser()
-        .catch((error) => console.error("Bir sorun çıktı tekrar deneyin ", error))
-        .then(() => console.log("Connection closed"));
-    };
+    // !!! disconnectUser() KULLANMA !!!
+    // return () => {
+    //   setChatClient(null);
+    //   client.disconnectUser();
+    // };
+
   }, [user.id, user.username, user.displayName, user.avatarUrl]);
 
   return chatClient;

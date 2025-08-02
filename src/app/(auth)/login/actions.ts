@@ -1,4 +1,10 @@
-// Bismillahirrahmanirahim 
+// Bismillahirrahmanirahim
+// Elhamdulillahi Rabbil Alamin
+// Es-salatu was-salamu 'ala Rasulillah
+// Allah u Ekber velillahilhamd
+
+
+
 
 "use server";
 
@@ -27,7 +33,7 @@ export async function login(
 
     if (!existingUser || !existingUser.passwordHash) {
       return {
-        error: "Bilgilerinizde hata var",
+        error: "Incorrect username or password",
       };
     }
 
@@ -40,7 +46,7 @@ export async function login(
 
     if (!validPassword) {
       return {
-        error: "Bilgilerinizde hata var",
+        error: "Incorrect username or password",
       };
     }
 
@@ -57,7 +63,7 @@ export async function login(
     if (isRedirectError(error)) throw error;
     console.error(error);
     return {
-      error: "Bir sorun çıktı, tekrar deneyin",
+      error: "Something went wrong. Please try again.",
     };
   }
 }

@@ -1,7 +1,13 @@
-// Bismillahirrahmanirahim
+// Bismillahirrahmanirrahim
+// Elhamdulillahi Rabbil Alamin
+// Es-salatu was-salamu 'ala Rasulillah
+// Allah u Ekber velillahilhamd
+
+
+
 
 "use client";
-
+import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useState } from "react";

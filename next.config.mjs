@@ -1,6 +1,4 @@
 // Bismillahirrahmanirahim
-// Elhamdulillahirabbulalemin
-// Es-selatu vesselamu ala rasulina Muhammedin ve ala alihi ve sahbihi ecmain.
 
 
 
@@ -9,8 +7,8 @@ const nextConfig = {
   
   
   
-  
   reactStrictMode: true,
+	
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.

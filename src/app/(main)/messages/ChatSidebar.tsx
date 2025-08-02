@@ -1,5 +1,7 @@
 // Bismillahirrahmanirrahim 
-
+// Elhamdulillahi Rabbil Alamin
+// Es-salatu ve Es-selamu ala Resulina Muhammedin ve ala alihi ve sahbihi ecmain
+// Allah u Ekber ve Lillahi'l-hamd
 
 
 import { Button } from "@/components/ui/button";
@@ -14,6 +16,7 @@ import {
   useChatContext,
 } from "stream-chat-react";
 import { useSession } from "../SessionProvider";
+import NewChatDialog from "./NewChatDialog";
 
 interface ChatSidebarProps {
   open: boolean;
@@ -91,11 +94,25 @@ function MenuHeader({ onClose }: MenuHeaderProps) {
             <X className="size-5" />
           </Button>
         </div>
-        <h1 className="me-auto text-xl font-bold md:ms-2">Mesajlar</h1>
-     
+        <h1 className="me-auto text-xl font-bold md:ms-2">Messages</h1>
+        <Button
+          size="icon"
+          variant="ghost"
+          title="Start new chat"
+          onClick={() => setShowNewChatDialog(true)}
+        >
+          <MailPlus className="size-5" />
+        </Button>
       </div>
-     
-      
+      {showNewChatDialog && (
+        <NewChatDialog
+          onOpenChange={setShowNewChatDialog}
+          onChatCreated={() => {
+            setShowNewChatDialog(false);
+            onClose();
+          }}
+        />
+      )}
     </>
   );
 }

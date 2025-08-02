@@ -1,5 +1,7 @@
 // Bismillahirahmanirahim 
-
+// ELHAMDULİLLAHİRABBULALEMİN
+// Es-selatu ve Es-selamu ala Resulina Muhammedin ve ala alihi ve sahbihi ecmain
+// Allah u Ekber, Allah u Ekber, Allah u Ekber, La ilahe illallah
 
 
 "use client";
@@ -19,7 +21,7 @@ export default function MessagesButton({ initialState }: MessagesButtonProps) {
   const { data } = useQuery({
     queryKey: ["unread-messages-count"],
     queryFn: () =>
-      kyInstance.get("/api/messages/unread-count").json<MessageCountInfo>(),
+      kyInstance.get("api/messages/unread-count").json<MessageCountInfo>(),  // ✅ Düzgün ky kullanımı
     initialData: initialState,
     refetchInterval: 60 * 1000,
   });
@@ -34,7 +36,7 @@ export default function MessagesButton({ initialState }: MessagesButtonProps) {
       <Link href="/messages">
         <div className="relative">
           <Mail />
-          {!!data.unreadCount && (
+          {!!data?.unreadCount && (
             <span className="absolute -right-1 -top-1 rounded-full bg-primary px-1 text-xs font-medium tabular-nums text-primary-foreground">
               {data.unreadCount}
             </span>

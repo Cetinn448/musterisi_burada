@@ -1,8 +1,10 @@
-// Bismillahirrahmanirahim 
+// Bismillahirrahmanirahim
+// Elhamdulillahi Rabbil Alamin
+// Es-salatu was-salamu 'ala Rasulillah
+// Allah u Ekber velillahilhamd
 
 "use server";
 
-// ALLAHU EKBER
 import { lucia } from "@/auth";
 import prisma from "@/lib/prisma";
 import streamServerClient from "@/lib/stream";
@@ -39,7 +41,7 @@ export async function signUp(
 
     if (existingUsername) {
       return {
-        error: "Başka bir kullanıcı adı girin",
+        error: "Username already taken",
       };
     }
 
@@ -54,7 +56,7 @@ export async function signUp(
 
     if (existingEmail) {
       return {
-        error: "Başka bir email girin",
+        error: "Email already taken",
       };
     }
 
@@ -88,7 +90,7 @@ export async function signUp(
     if (isRedirectError(error)) throw error;
     console.error(error);
     return {
-      error: "Bir sorun çıktı tekrar deneyin ",
+      error: "Something went wrong. Please try again.",
     };
   }
 }

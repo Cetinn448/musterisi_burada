@@ -1,6 +1,8 @@
 // Bismillahirahmanirahim 
+// Elhamdulillahi Rabbil Alamin
+// Es-salatu ve Es-selamu ala Resulina Muhammedin ve ala alihi ve sahbihi ecmain
+// Allah u Ekber ve Lillahi'l-hamd
 
-//Elhamdülillahirabbülalemin 
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -20,13 +22,19 @@ interface ChatChannelProps {
 }
 
 export default function ChatChannel({ open, openSidebar }: ChatChannelProps) {
+  // Mobile: message input always at the bottom
   return (
-    <div className={cn("w-full md:block", !open && "hidden")}>
+    <div className={cn("w-full h-full flex flex-col", !open && "hidden")}
+         style={{ minHeight: 0 }}>
       <Channel>
         <Window>
           <CustomChannelHeader openSidebar={openSidebar} />
-          <MessageList />
-          <MessageInput />
+          <div className="flex-1 min-h-0 overflow-y-auto">
+            <MessageList />
+          </div>
+          <div className="sticky bottom-0 bg-background z-10 p-2 border-t">
+            <MessageInput />
+          </div>
         </Window>
       </Channel>
     </div>

@@ -1,6 +1,10 @@
 // Bismillahirahmanirahim 
+// Elhamdulillahirabbulalemin
+// Esselatu ve esselamu alen Nebiyyi Muhammedin ve alen alihi ve sahbihi ecmain
+import Mmmnavbar from "./components/mmnav";
 
-import MmmNavbar from "./mmnav";
+import 'bootstrap/dist/css/bootstrap.css'
+import Footer from "./components/mmbingeh";
 
 
 
@@ -9,15 +13,16 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
- 
+
 
   return (
- 
+<div>
 
-    <div>
+<Mmmnavbar/>
 
-<MmmNavbar/>
-        {children}
-    </div>
+{children}
+
+<Footer/>
+</div>
   );
 }

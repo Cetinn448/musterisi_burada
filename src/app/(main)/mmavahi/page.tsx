@@ -1,12 +1,16 @@
 // Bismillahirrahmanirrahim
+// Elhamdulillahi Rabbil Alamin
+// Es-salatu was-salamu 'ala Rasulillah
+// Allah u Ekber velillahilhamd
+"use client";
+import React from "react";
 
-
-
+import PostEditor from "@/components/mmavahi/editor/PostEditor";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import ForYouFeed from "./ForYouFeed";
 
-import PostEditor from "@/components/mmavahi/editor/PostEditor";
+import SearchField from "@/components/mmavahi/SearchField";
 
 export default function Home() {
   return (
@@ -14,11 +18,11 @@ export default function Home() {
       <div className="w-full min-w-0 space-y-5">
 
         <h1 className="text-3xl font-semibold">Emlak </h1>
-        <Tabs defaultValue="for-you">
+        <Tabs defaultValue="mm">
           <TabsList>
             <TabsTrigger value="for-you">İlanlar</TabsTrigger>
             <TabsTrigger value="following">Kategoride Ara</TabsTrigger>
-            <TabsTrigger value="mm">Yeni ilan Ver</TabsTrigger>
+            <TabsTrigger value="mm">Yeni İlan ver</TabsTrigger>
 
           </TabsList>
           <TabsContent value="for-you">
@@ -26,6 +30,7 @@ export default function Home() {
           </TabsContent>
           <TabsContent value="following">
 
+      <SearchField/>
           </TabsContent>
     
 
@@ -34,7 +39,8 @@ export default function Home() {
 
 
         <TabsContent value="mm">
-<PostEditor/>
+
+  <PostEditor />
 
     </TabsContent>
     </Tabs>

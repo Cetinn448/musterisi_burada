@@ -6,6 +6,9 @@
 
 @layer base {
   :root {
+   
+      --bs-primary: #28a745; /* Yeşil renk */
+ 
     --background: 224, 5%, 95%;
     --foreground: 240 10% 3.9%;
 

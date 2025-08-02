@@ -1,6 +1,6 @@
 // Bismillahirrahmanirahim
 // Elhamdullillahirabbulalemin
-
+//Es-selatu vesselamu ala rasulina Muhammedin ve ala alihi ve sahbihi, ecmain
 
 import { validateRequest } from "@/auth";
 import prisma from "@/lib/prisma";
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     const q = req.nextUrl.searchParams.get("q") || "";
     const cursor = req.nextUrl.searchParams.get("cursor") || undefined;
 
-    const searchTerms = q.split(" "); // Convert search query to an array
+    const searchQuery = q.split(" ").join(" & ");
 
     const pageSize = 10;
 
@@ -27,22 +27,20 @@ export async function GET(req: NextRequest) {
         OR: [
           {
             content: {
-              hasSome: searchTerms, // Use hasSome to match any of the search terms
+              search: searchQuery,
             },
           },
           {
             user: {
               displayName: {
-                contains: q, // Use contains for partial match
-                mode: "insensitive", // Case insensitive search
+                search: searchQuery,
               },
             },
           },
           {
             user: {
               username: {
-                contains: q, // Use contains for partial match
-                mode: "insensitive", // Case insensitive search
+                search: searchQuery,
               },
             },
           },

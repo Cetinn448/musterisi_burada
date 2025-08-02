@@ -1,5 +1,8 @@
 // Bismillahirrahmanirrahim 
-
+// Elhamdulillahirabbulalemin
+// Esselatu vesselamu ala rasulillah ve ala alihi ve sahbihi ecma'in
+// Allahu Ekber velilahi'lhamd
+// La ilahe illallah, Allahu Ekber Allahu Ekber, ve lillahi'lhamd
 "use client";
 
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
@@ -24,7 +27,7 @@ export default function ForYouFeed() {
       kyInstance
         .get(
           "/api/posts/mmavahi",
-          pageParam ? { searchParams: { cursor: pageParam } } : {},
+          pageParam ? { searchParams: { cursor: pageParam } } : undefined,
         )
         .json<PostsPage>(),
     initialPageParam: null as string | null,
@@ -40,7 +43,7 @@ export default function ForYouFeed() {
   if (status === "success" && !posts.length && !hasNextPage) {
     return (
       <p className="text-center text-muted-foreground">
-        Hê kesî tiştek parvenekirî ye
+        Henüz ilan yok.
       </p>
     );
   }
@@ -48,18 +51,18 @@ export default function ForYouFeed() {
   if (status === "error") {
     return (
       <p className="text-center text-destructive">
-        Pirsgirek derket 
+        Bir hata oluştu.
       </p>
     );
   }
 
   return (
     <InfiniteScrollContainer
-      className="space-y-5"
+      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5"
       onBottomReached={() => hasNextPage && !isFetching && fetchNextPage()}
     >
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} viewerId={""} />
       ))}
       {isFetchingNextPage && <Loader2 className="mx-auto my-3 animate-spin" />}
     </InfiniteScrollContainer>

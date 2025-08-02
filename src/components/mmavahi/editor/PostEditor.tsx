@@ -1,8 +1,9 @@
-// Bismillahirrahmanirrahim
-// Elhamdulillahirabbulalemin
-// Es-selatu vesselamu ala rasulina Muhammedin ve ala alihi ve sahbihi ecmain.
-"use client"
-import React from "react";
+// Bismillahirahmanirahim 
+// ElHAMDULİLLAHİRABBULALEMİN
+// Es-selatu ve Es-selamu ala Resulina Muhammedin ve ala alihi ve sahbihi ecmain
+// Allah u Ekber, Allah u Ekber, Allah u Ekber, La ilahe illallah
+"use client";
+
 import { useSession } from "@/app/(main)/SessionProvider";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
@@ -18,11 +19,23 @@ import { ClipboardEvent, useRef, useState } from "react";
 import { useSubmitPostMutation } from "./mutations";
 import "./styles.css";
 import useMediaUpload, { Attachment } from "./useMediaUpload";
-import { Input } from "@/components/ui/input";
 
 export default function PostEditor() {
   const { user } = useSession();
+
+  // Emlak ilanı için ek alanlar
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("satilik");
+  const [address, setAddress] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [contact, setContact] = useState("");
+  const [location, setLocation] = useState<{ lat: number; lng: number; city?: string } | null>(null);
+  const [city, setCity] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const mutation = useSubmitPostMutation();
+
   const {
     startUpload,
     attachments,
@@ -45,53 +58,57 @@ export default function PostEditor() {
         italic: false,
       }),
       Placeholder.configure({
-        placeholder: "Selam aleykum,fermo...",
+        placeholder: "İlan açıklaması (ör: 3+1 daire, yeni tadilatlı, merkezi konum...)",
       }),
     ],
   });
 
-
-
-  const mmtel = useRef<HTMLInputElement>(null);
-  const [selectedOption, setSelectedOption] = useState("Belirtilmemiş");
-
-  const [selectedOption1, setSelectedOption1] = useState("Belirtilmemiş");
-
-  const [selectedOption3, setSelectedOption3] = useState("Belirtilmemiş");
-
-  const [selectedOption5, setSelectedOption5] = useState("Belirtilmemiş");
-
-  const [selectedOption7, setSelectedOption7] = useState("Belirtilmemiş");
-
-  
-
-
-
-  const [selectedOption9, setSelectedOption9] = useState("Belirtilmemiş");
-
-
-
-  const [selectedOption11, setSelectedOption11] = useState("Belirtilmemiş");
-
-  const [selectedOption13, setSelectedOption13] = useState("Belirtilmemiş");
-
-  const [selectedOption15, setSelectedOption15] = useState("Belirtilmemiş");
-
-  const [selectedOption17, setSelectedOption17] = useState("Belirtilmemiş");
-
+  const description =
+    editor?.getText({
+      blockSeparator: "\n",
+    }) || "";
 
   function onSubmit() {
+    // Tüm inputları bir dizi olarak content'e ekle
+    const contentArr = [
+      title,
+      price,
+      category,
+      address,
+      whatsapp,
+      contact,
+      location?.city || city || "",
+      location ? `${location.lat},${location.lng}` : "",
+      description,
+    ];
     mutation.mutate(
       {
-        content: [selectedOption, selectedOption1,selectedOption3,selectedOption5,selectedOption7,selectedOption9,selectedOption11,selectedOption13,selectedOption15,mmtel.current?.value ?? ""],
+        content: JSON.stringify(contentArr),
         mediaIds: attachments.map((a) => a.mediaId).filter(Boolean) as string[],
+        title,
+        price,
+        category,
+        address,
+        whatsapp,
+        contact,
+        city: location?.city || city || "",
+        lat: location?.lat ?? 0,
+        lng: location?.lng ?? 0,
+        description,
       },
       {
         onSuccess: () => {
+          setTitle("");
+          setPrice("");
+          setCategory("satilik");
+          setAddress("");
+          setWhatsapp("");
+          setContact("");
+          setCity("");
           editor?.commands.clearContent();
           resetMediaUploads();
         },
-      }
+      },
     );
   }
 
@@ -102,147 +119,124 @@ export default function PostEditor() {
     startUpload(files);
   }
 
+  async function handleLocationSearch(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    setLoading(true);
+    if (!navigator.geolocation) {
+      alert("Tarayıcınız konum servisini desteklemiyor.");
+      setLoading(false);
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        // OpenStreetMap Nominatim ile reverse geocoding
+        let city = "";
+        try {
+          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10&addressdetails=1`);
+          const data = await res.json();
+          city = data.address?.city || data.address?.town || data.address?.village || data.address?.state || "";
+        } catch {}
+        setLocation({ lat, lng, city });
+        setLoading(false);
+      },
+      (err) => {
+        alert("Konum alınamadı: " + err.message);
+        setLoading(false);
+      }
+    );
+  }
+
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex gap-5">
         <UserAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
-        <div {...rootProps} className="w-full">
-          <h5>Yeni Emlak İlanı</h5>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <Input placeholder="İlan Fiyatı" className="mt-3" />
-            <Input placeholder="Alan (metrekare)" className="mt-3" />
-            <Input placeholder="Açıklama" className="mt-3" />
-            <Input ref={mmtel} placeholder="Whatsapp" className="mt-3" />
-
+        <div className="w-full space-y-3">
+          <input
+            type="text"
+            placeholder="İlan Başlığı"
+            className="w-full rounded-lg border px-4 py-2"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            maxLength={100}
+            required
+          />
+          <div className="flex gap-3">
+            <input
+              type="number"
+              placeholder="Fiyat (₺)"
+              className="w-1/2 rounded-lg border px-4 py-2"
+              value={price}
+              onChange={e => setPrice(e.target.value)}
+              min={0}
+              required
+            />
             <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption}
-              onChange={(e) => setSelectedOption(e.target.value)}
+              className="w-1/2 rounded-lg border px-4 py-2"
+              value={category}
+              onChange={e => setCategory(e.target.value)}
             >
-              <option value="Şehir Merkezi">Emlak Türü</option>
-              <option value="Konut">Konut</option>
-              <option value="Arsa">Arsa</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption1}
-              onChange={(e) => setSelectedOption1(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Konut Kullanımı</option>
-              <option value="Satılık">Satılık</option>
-              <option value="Kiralık">Kiralık</option>
-              <option value="Devren Satılık">Devren Satılık</option>
-              <option value="Devren Kiralık">Devren Kiralık</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption3}
-              onChange={(e) => setSelectedOption3(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Oda Sayısı</option>
-              <option value="1+1">1+1</option>
-              <option value="2+1">2+1</option>
-              <option value="3+1">3+1</option>
-              <option value="4+1 ve üzeri">4+1 ve üzeri</option>
-              <option value="1+0">1+0 (Stüdyo Daire)</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption5}
-              onChange={(e) => setSelectedOption5(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Isınma Sistemi</option>
-              <option value="Doğal Gaz">Doğal Gaz</option>
-              <option value="Kömür Merkezi Sistem">Kömür Merkezi Sistem</option>
-              <option value="Jeotermal">Jeotermal</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption7}
-              onChange={(e) => setSelectedOption7(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Asansör</option>
-              <option value="Var">Var</option>
-              <option value="Yok">Yok</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption9}
-              onChange={(e) => setSelectedOption9(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Otopark</option>
-              <option value="Var">Var</option>
-              <option value="Yok">Yok</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption11}
-              onChange={(e) => setSelectedOption11(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Bahçeli</option>
-              <option value="Var">Var</option>
-              <option value="Yok">Yok</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption13}
-              onChange={(e) => setSelectedOption13(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Havuz</option>
-              <option value="Var">Var</option>
-              <option value="Yok">Yok</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption15}
-              onChange={(e) => setSelectedOption15(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Balkon</option>
-              <option value="Var">Var</option>
-              <option value="Yok">Yok</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption17}
-              onChange={(e) => setSelectedOption17(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Teras</option>
-              <option value="Var">Var</option>
-              <option value="Yok">Yok</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption}
-              onChange={(e) => setSelectedOption(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Klima</option>
-              <option value="Var">Var</option>
-              <option value="Yok">Yok</option>
-            </select>
-
-            <select
-              className="mt-3 p-2 border rounded"
-              value={selectedOption}
-              onChange={(e) => setSelectedOption(e.target.value)}
-            >
-              <option value="Şehir Merkezi">Eşya Durumu</option>
-              <option value="Eşyalı">Eşyalı</option>
-              <option value="Eşyasız">Eşyasız</option>
+              <option value="satilik">Satılık</option>
+              <option value="kiralik">Kiralık</option>
             </select>
           </div>
+          <input
+            type="text"
+            placeholder="Adres"
+            className="w-full rounded-lg border px-4 py-2"
+            value={address}
+            onChange={e => setAddress(e.target.value)}
+            maxLength={200}
+            required
+          />
         </div>
       </div>
-
+      <div className="flex gap-3">
+        <input
+          type="text"
+          placeholder="WhatsApp Numarası (örn: 05XXXXXXXXX)"
+          className="w-1/2 rounded-lg border px-4 py-2"
+          value={whatsapp}
+          onChange={e => setWhatsapp(e.target.value)}
+          maxLength={20}
+        />
+        <input
+          type="text"
+          placeholder="İletişim Bilgisi (örn: e-posta veya telefon)"
+          className="w-1/2 rounded-lg border px-4 py-2"
+          value={contact}
+          onChange={e => setContact(e.target.value)}
+          maxLength={50}
+        />
+      </div>
+      <div className="flex gap-3">
+        <button
+          type="button"
+          onClick={handleLocationSearch}
+          className="rounded bg-muted px-2 py-1 text-xs text-muted-foreground hover:bg-muted/80"
+          disabled={loading}
+        >
+          {loading ? "Konum Alınıyor..." : "Konumumu Al"}
+        </button>
+        {location && (
+          <span className="text-xs text-muted-foreground">
+            Konumunuz: {location.lat.toFixed(5)}, {location.lng.toFixed(5)}
+            {location.city && ` (${location.city})`}
+          </span>
+        )}
+      </div>
+      <div {...rootProps} className="w-full">
+        <EditorContent
+          editor={editor}
+          className={cn(
+            "max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3",
+            isDragActive && "outline-dashed",
+          )}
+          onPaste={onPaste}
+        />
+        <input {...getInputProps()} />
+      </div>
       {!!attachments.length && (
         <AttachmentPreviews
           attachments={attachments}
@@ -258,14 +252,21 @@ export default function PostEditor() {
         )}
         <AddAttachmentsButton
           onFilesSelected={startUpload}
-          disabled={isUploading || attachments.length >= 5}
+          disabled={isUploading || attachments.length >= 10}
         />
         <LoadingButton
           onClick={onSubmit}
           loading={mutation.isPending}
+          disabled={
+            !title.trim() ||
+            !price.trim() ||
+            !address.trim() ||
+            !description.trim() ||
+            isUploading
+          }
           className="min-w-20"
         >
-          İlanı Yayınlayın
+          İlanı Yayınla
         </LoadingButton>
       </div>
     </div>
@@ -325,7 +326,7 @@ function AttachmentPreviews({
     <div
       className={cn(
         "flex flex-col gap-3",
-        attachments.length > 1 && "sm:grid sm:grid-cols-2"
+        attachments.length > 1 && "sm:grid sm:grid-cols-2",
       )}
     >
       {attachments.map((attachment) => (

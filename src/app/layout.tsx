@@ -1,7 +1,10 @@
 // Bismillahirrahmanirrahim 
-
-
-
+// Elhamdulillahirabbulalemin
+// Esselatu vesselamu ala rasulillah ve ala alihi ve sahbihi ecma'in
+// Allahu Ekber velilahi'lhamd
+// Allah u Ekber Allah u Ekber
+// La ilahe illallah, Allahu Ekber Allahu Ekber, ve lillahi'lhamd
+// SuphanAllah, SubhanAllah, SubhanAllah
 import { Toaster } from "@/components/ui/toaster";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
@@ -23,10 +26,10 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Müşterisi Burada",
-    default: "Müşterisi Burada",
+    template: "%s | İş İlanları",
+    default: "İş İlanları",
   },
-  description: " İnşaat iş ilanları",
+  description: "En güncel iş ilanlarını burada bulabilirsiniz.",
 };
 
 export default function RootLayout({
@@ -35,17 +38,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="tr">
+    
+    <head>
+
+
+ {process.env.NODE_ENV === "development" && (
+          <script src="http://localhost:8097"></script>
+        )}
+    </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextSSRPlugin routerConfig={extractRouterConfig(fileRouter)} />
         <ReactQueryProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+           
+            <main>{children}</main>
           </ThemeProvider>
         </ReactQueryProvider>
         <Toaster />
