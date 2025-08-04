@@ -1,52 +1,47 @@
 {
   "expo": {
-    "name": "Hızlı iş bulma platformu",
-    "slug": "is-ilanlari",
+    "name": "mobile",
+    "slug": "mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
+    "scheme": "mobile",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
-      "supportsTablet": true,
-      "infoPlist": {
-        "NSCameraUsageDescription": "Kamera kullanımı için izin gerekiyor.",
-        "NSLocationWhenInUseUsageDescription": "Konum erişimi için izin gerekiyor.",
-        "NSPhotoLibraryUsageDescription": "Fotoğraf galerisine erişim için izin gerekiyor.",
-        "NSMicrophoneUsageDescription": "Video kaydı için mikrofon erişimi gerekiyor."
-      }
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "CAMERA",
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE",
-        "RECORD_AUDIO"
-      ],
-      "package": "com.cegerxwinislam.isilanlari"
+      "edgeToEdgeEnabled": true,
+      "package": "com.cegerxwinislam.mobile"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-notifications"
+    ],
+    "experiments": {
+      "typedRoutes": true
     },
     "extra": {
+      "router": {},
       "eas": {
-        "projectId": "4659d415-4173-4299-bfdb-34c80d07b27b"
+        "projectId": "a6475d8d-03cc-496f-a2d8-5d2f9ded1602"
       }
-    }
+    },
+    "owner": "cegerxwinislam"
   }
 }
