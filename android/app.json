@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "Hızlı iş bulma platformu",
+    "slug": "is-ilanlari",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Kamera kullanımı için izin gerekiyor.",
+        "NSLocationWhenInUseUsageDescription": "Konum erişimi için izin gerekiyor.",
+        "NSPhotoLibraryUsageDescription": "Fotoğraf galerisine erişim için izin gerekiyor.",
+        "NSMicrophoneUsageDescription": "Video kaydı için mikrofon erişimi gerekiyor."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "RECORD_AUDIO"
+      ],
+      "package": "com.cegerxwinislam.isilanlari"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4659d415-4173-4299-bfdb-34c80d07b27b"
+      }
+    }
+  }
+}

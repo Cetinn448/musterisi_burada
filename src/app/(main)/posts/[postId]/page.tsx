@@ -1,11 +1,12 @@
 // Bismillahirrahmanirrahim
-// Elhamdulillahi Rabbul Alemin
-// Es-salatu ve Es-selamu ala Resulina Muhammedin ve ala alihi ve sahbihi ecmain
-// Allah u Ekber ve Lillahi'l-hamd
+// Elhamdulillahi Rabbil Alamin
+// Es-salatu was-salamu 'ala Rasulillah
+// Allah u Ekber velillahilhamd
 // HasbunAllahu ve ni'mel vekil
+// La ilahe illallah 
 import { validateRequest } from "@/auth";
 import Linkify from "@/components/Linkify";
-import MmmPost from "@/components/mmavahi/mmPost";
+import MmmPost from "@/components/posts/mmPost";
 import UserAvatar from "@/components/UserAvatar";
 import UserTooltip from "@/components/UserTooltip";
 import prisma from "@/lib/prisma";
@@ -15,14 +16,14 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cache, Suspense } from "react";
-import ChatProviderClient from "../../../ChatProviderClient";
+import ChatProviderClient from "../../ChatProviderClient"
 
 interface PageProps {
   params: { postId: string };
 }
 
 const getPost = cache(async (postId: string, loggedInUserId: string) => {
-  const post = await prisma.mmavahi.findUnique({
+  const post = await prisma.post.findUnique({
     where: {
       id: postId,
     },
@@ -79,17 +80,17 @@ export default async function Page({ params: { postId } }: PageProps) {
           {/* Mobilde göster (lg'den küçük ekranlarda) */}
           <div className="block lg:hidden">
             <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-              <UserInfoSidebar user={post.user} loggedInUserId={user.id} post={post} />
+              <UserInfoSidebar user={post.user} loggedInUserId={user.id} post={{ whatsapp: post.user.whatsapp, contact: post.user.contact }} />
             </Suspense>
           </div>
         </div>
         {/* Sadece büyük ekranda göster */}
         <div className="sticky top-[5.25rem] hidden h-fit w-80 flex-none lg:block">
           <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-            <UserInfoSidebar user={post.user} loggedInUserId={user.id} post={post} />
+            <UserInfoSidebar user={post.user} loggedInUserId={user.id} post={{ whatsapp: post.user.whatsapp, contact: post.user.contact }} />
           </Suspense>
         </div>
       </main>
     </ChatProviderClient>
   );
-}
+                                }

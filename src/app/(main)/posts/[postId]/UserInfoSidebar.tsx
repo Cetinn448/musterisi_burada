@@ -3,7 +3,7 @@
 // Es-salatu ve Es-selamu ala Resulina Muhammedin ve ala alihi ve sahbihi ecmain
 // Allah u  Ekber ve Lillahi'l Hamd
 // La ilahe illallah, Allahu Ekber, Allahu Ekber, Allahu Ekber
-// SubhanAllah, SubhanAllah, SubhanAllah, ve'l-hamd
+// SubhanAllah, SubhanAllah, SubhanAllah, La ilahe illallah 
 "use client";
 import Link from "next/link";
 import Linkify from "@/components/Linkify";
@@ -85,5 +85,4 @@ export default function UserInfoSidebar({ user, loggedInUserId, post = {} }: Use
       )}
     </div>
   );
-}
-
+    }

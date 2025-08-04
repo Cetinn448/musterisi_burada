@@ -1,0 +1,26 @@
+{
+  "name": "expo-webview-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "expo": "~48.0.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-native": "0.71.0",
+    "react-native-webview": "^11.23.0",
+    "expo-location": "~15.1.1",
+    "expo-camera": "~13.2.1",
+    "expo-media-library": "~15.2.3"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "9.0.0"
+  },
+  "main": "App.js",
+  "license": "MIT"
+}
