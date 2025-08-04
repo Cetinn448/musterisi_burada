@@ -18,7 +18,7 @@ export default function Navbar() {
         {/* Logo */}
         {!searchActive && (
           <Link href="/" className="text-2xl font-bold text-primary whitespace-nowrap">
-            Müşterisi Burada
+            İş İlanları
           </Link>
         )}
 
