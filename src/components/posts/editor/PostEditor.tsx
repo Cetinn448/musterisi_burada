@@ -291,10 +291,15 @@ function PostEditor() {
           </div>
           <div>
             <label className="block mb-2 font-semibold">Fotoğraf veya Video Ekle</label>
-            <AddAttachmentsButton
-              onFilesSelected={startUpload}
-              disabled={isUploading || attachments.length >= 10}
-            />
+            <div className="flex items-center gap-2">
+              <AddAttachmentsButton
+                onFilesSelected={startUpload}
+                disabled={isUploading || attachments.length >= 10}
+              />
+              <span className="text-xs text-muted-foreground">
+                Fotoğraf veya video eklemek için tıklayın
+              </span>
+            </div>
             {isUploading && (
               <div className="flex items-center gap-2 mt-2">
                 <Loader2 className="size-5 animate-spin text-primary" />
@@ -307,6 +312,9 @@ function PostEditor() {
                 removeAttachment={removeAttachment}
               />
             )}
+            <p className="text-xs text-muted-foreground mt-1">
+              En fazla 10 fotoğraf veya video ekleyebilirsiniz.
+            </p>
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-end gap-3">
             <LoadingButton
