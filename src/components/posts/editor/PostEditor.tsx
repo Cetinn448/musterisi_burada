@@ -289,39 +289,26 @@ function PostEditor() {
               />
             </div>
           </div>
-          <div {...rootProps} className="w-full">
-            <EditorContent
-              editor={editor}
-              className={cn(
-                "max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-3 py-3 text-black prose prose-green",
-                isDragActive && "outline-dashed",
-              )}
-              onPaste={(e) => {
-                const files = Array.from(e.clipboardData.items)
-                  .filter((item) => item.kind === "file")
-                  .map((item) => item.getAsFile()) as File[];
-                startUpload(files);
-              }}
-            />
-            <input {...getInputProps()} />
-          </div>
-          {!!attachments.length && (
-            <AttachmentPreviews
-              attachments={attachments}
-              removeAttachment={removeAttachment}
-            />
-          )}
-          <div className="flex flex-col sm:flex-row items-center justify-end gap-3">
-            {isUploading && (
-              <>
-                <span className="text-sm">{uploadProgress ?? 0}%</span>
-                <Loader2 className="size-5 animate-spin text-primary" />
-              </>
-            )}
+          <div>
+            <label className="block mb-2 font-semibold">Fotoğraf veya Video Ekle</label>
             <AddAttachmentsButton
               onFilesSelected={startUpload}
               disabled={isUploading || attachments.length >= 10}
             />
+            {isUploading && (
+              <div className="flex items-center gap-2 mt-2">
+                <Loader2 className="size-5 animate-spin text-primary" />
+                <span className="text-sm">{uploadProgress ?? 0}%</span>
+              </div>
+            )}
+            {!!attachments.length && (
+              <AttachmentPreviews
+                attachments={attachments}
+                removeAttachment={removeAttachment}
+              />
+            )}
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-end gap-3">
             <LoadingButton
               onClick={onSubmit}
               loading={mutation.isPending}
