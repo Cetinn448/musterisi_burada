@@ -17,7 +17,7 @@ export default function Home() {
     <main className="flex w-full min-w-0 gap-5">
 
       <Alert variant="info" className="mt-2">
-              <Alert.Heading>İş İlanları</Alert.Heading>
+              <Alert>İş İlanları</Alert>
               <p>
               İlan vermek için lütfen giriş yapın veya kaydolun.
               </p>
