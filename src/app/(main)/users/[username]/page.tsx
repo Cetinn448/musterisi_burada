@@ -9,7 +9,7 @@ import { validateRequest } from "@/auth";
 import Linkify from "@/components/Linkify";
 import UserAvatar from "@/components/UserAvatar";
 import prisma from "@/lib/prisma";
-import { formatDate } from "date-fns";
+import { format } from "date-fns";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -121,7 +121,7 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
             <h1 className="text-3xl font-bold">{user.displayName}</h1>
             <div className="text-muted-foreground">@{user.username}</div>
           </div>
-          <div> {formatDate(user.createdAt, "MMM d, yyyy")} 'den beri üye</div>
+          <div> {format(user.createdAt, "MMM d, yyyy")} 'den beri üye</div>
           <div className="flex items-center gap-3">
             <span>
               İlan Sayısı:{" "}

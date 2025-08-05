@@ -2,7 +2,9 @@
 // Elhamdulillahi Rabbil Alamin
 // Es-salatu was-salamu 'ala Rasulillah
 // Allah u Ekber velillahilhamd
-
+// SubhanAllah ul Azim ve bihamdihi
+// Allah u Ekber velillahilhamd
+// La ilahe illallah, Allahu Ekber Allahu Ekber ve lillahi'lhamd
 
 
 
