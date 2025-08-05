@@ -32,10 +32,10 @@ export type UserData = {
   contact?: string | null;
 };
 
-export function getPostDataInclude(loggedInUserId: string) {
+export function getPostDataInclude(loggedInUserId?: string) {
   return {
     user: {
-      select: getUserDataSelect(loggedInUserId),
+      select: getUserDataSelect(loggedInUserId ?? ""),
     },
     attachments: true,
     // Diğer ilişkili alanlar gerekiyorsa burada belirtilebilir
