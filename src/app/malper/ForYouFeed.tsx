@@ -26,7 +26,7 @@ export default function ForYouFeed() {
     queryFn: ({ pageParam }) =>
       kyInstance
         .get(
-          "/api/posts/mmavahi",
+          "/api/posts/",
           pageParam ? { searchParams: { cursor: pageParam } } : undefined,
         )
         .json<PostsPage>(),
