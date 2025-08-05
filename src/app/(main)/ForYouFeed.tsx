@@ -28,7 +28,7 @@ export default function ForYouFeed({ viewerId }: { viewerId: string }) {
     queryKey: ["post-feed", "for-you"],
     queryFn: ({ pageParam }) =>
       kyInstance
-        .get("/api/posts/", pageParam ? { searchParams: { cursor: pageParam } } : {})
+        .get("/api/posts", pageParam ? { searchParams: { cursor: pageParam } } : {})
         .json<PostsPage>(),
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
