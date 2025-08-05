@@ -16,12 +16,7 @@ export default function Home() {
   return (
     <main className="flex w-full min-w-0 gap-5">
 
-      <Alert variant="info" className="mt-2">
-              <Alert>İş İlanları</Alert>
-              <p>
-              İlan vermek için lütfen giriş yapın veya kaydolun.
-              </p>
-            </Alert>
+     
       <div className="w-full min-w-0 space-y-5">
         <Tabs defaultValue="for-you">
           <TabsList>
