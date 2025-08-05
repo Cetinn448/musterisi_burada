@@ -16,13 +16,17 @@ export default function Home() {
   return (
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
-        <Alert variant="info">Emlak</Alert>
         <Tabs defaultValue="for-you">
           <TabsList>
             <TabsTrigger value="for-you">Satılık</TabsTrigger>
             <TabsTrigger value="rent">Kiralık</TabsTrigger>
             <TabsTrigger value="projects">Kategoride Ara</TabsTrigger>
-         
+            <Alert variant="info" className="mt-2">
+              <Alert.Heading>İş İlanları</Alert.Heading>
+              <p>
+              İlan vermek için lütfen giriş yapın veya kaydolun.
+              </p>
+            </Alert>
           </TabsList>
           <TabsContent value="for-you">
             <ForYouFeed />
